@@ -43,6 +43,9 @@ $h["shipCountry"] = "US";	// the country to Ship to
 $h["txnID"] = "1234";			// Transaction ID
 $h["sessionID"] = "abcd9876";		// Session ID
 
+$h["accept_language"] = "de-de";
+$h["user_agent"] = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_5; de-de) AppleWebKit/525.18 (KHTML, like Gecko) Version/3.1.2 Safari/525.20.1";
+
 // If you want to disable Secure HTTPS or don't have Curl and OpenSSL installed
 // uncomment the next line
 // $ccfs->isSecure = 0;
