@@ -62,9 +62,9 @@ class CreditCardFraudDetection extends HTTPBase {
     //set the url of the web service
     $this->url = "app/ccv2r";
     $this->check_field = "countryMatch";
-    $this->server = array("minfraud3.maxmind.com", "minfraud1.maxmind.com", "minfraud2.maxmind.com");
+    $this->server = array( "minfraud.maxmind.com", "minfraud-us-east.maxmind.com", "minfraud-us-west.maxmind.com");
     $this->numservers = count($this->server);
-    $this->API_VERSION = 'PHP/1.50';
+    $this->API_VERSION = 'PHP/1.51';
   }
 
   function filter_field($key, $value) {
