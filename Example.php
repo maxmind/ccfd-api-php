@@ -59,7 +59,7 @@ $ccfs->timeout = 5;
 // how many seconds to cache the ip addresses
 // $ccfs->wsIpaddrRefreshTimeout = 3600*5;
 
-// file to store the ip address for minfraud1.maxmind.com and minfraud2.maxmind.com
+// file to store the ip address for minfraud3.maxmind.com, minfraud1.maxmind.com and minfraud2.maxmind.com
 // $ccfs->wsIpaddrCacheFile = "/tmp/maxmind.ws.cache";
 
 // if useDNS is 1 then use DNS, otherwise use ip addresses directly

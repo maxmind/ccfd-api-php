@@ -1,4 +1,6 @@
 Revision history for MaxMind CreditCardFraudDetection PHP API
+1.49 Februar 19th 2009
+	- Add minfraud3.maxmind.com to the server list ( Boris Zentner )
 1.48 October 3th 2008
 	- Add new optional fields user_agent and accept_language for CCFD requests ( Boris Zentner )
 
