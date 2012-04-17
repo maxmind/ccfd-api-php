@@ -39,7 +39,8 @@ class HTTPBase{
     $this->isSecure = 0;
     $this->debug = 0;
     $this->timeout = 0;
-    $this->check_field = "score";
+    // use countryMatch to validate the results. It is avail in all minfraud answeres
+    $this->check_field = "countryMatch";
     $this->wsIpaddrRefreshTimeout = 18000;
     $this->wsIpaddrCacheFile = $this->_getTempDir()."/maxmind.ws.cache";
     if ($this->debug == 1) {
@@ -391,15 +392,10 @@ class HTTPBase{
       //hash named outputstr
       $this->outputstr[$key] = $value;
     }
-    //check if outputstr has the score if outputstr does not have 
-    //the score return 0
-    if ($this->outputstr[$this->check_field] == "") {
+    //one other way to do it
+    if (!array_key_exists($this->check_field,$this->outputstr)) {
       return 0;
     }
-    //one other way to do it
-    //if (!array_key_exists("score",$this->outputstr)) {
-    //  return 0;
-    //}
     return 1;
   }
 

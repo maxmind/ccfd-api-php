@@ -51,7 +51,7 @@ $h["user_agent"] = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_5; de-de) App
 // $ccfs->isSecure = 0;
 
 // set the timeout to be five seconds
-$ccfs->timeout = 5;
+$ccfs->timeout = 10;
 
 // uncomment to turn on debugging
 // $ccfs->debug = 1;
