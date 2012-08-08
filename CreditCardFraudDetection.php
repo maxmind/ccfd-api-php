@@ -55,7 +55,12 @@ class CreditCardFraudDetection extends HTTPBase {
     $this->allowed_fields["passwordMD5"] = 1;
     $this->allowed_fields["user_agent"] = 1;
     $this->allowed_fields["accept_language"] = 1;
-
+    $this->allowed_fields["avs_result"] = 1;
+    $this->allowed_fields["cvv_result"] = 1;
+    $this->allowed_fields["order_amount"] = 1;
+    $this->allowed_fields["order_currency"] = 1;
+    $this->allowed_fields["shopID"] = 1;
+    $this->allowed_fields["txn_type"] = 1;
 
     $this->num_allowed_fields = count($this->allowed_fields);
 
