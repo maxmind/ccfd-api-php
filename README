@@ -1,11 +1,10 @@
-Maxmind Credit Card Fraud Detection Service PHP API Version 1.49
+Maxmind Credit Card Fraud Detection Service PHP API Version 1.51
 
 ===============
 Example scripts
 
 See Example.php for complete example how to use this API with the CCFD service.
 See Example_telv.php for complete example how to use this API with the Telephone Verification service.
-See Example_locv.php for complete example how to use this API with the Location Verification service.
 These scripts can be run from the shell.
 
 ==================================
