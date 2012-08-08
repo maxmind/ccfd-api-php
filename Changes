@@ -1,5 +1,5 @@
 Revision history for MaxMind CreditCardFraudDetection PHP API
-1.51
+1.52 Aug 8th 2012
         - Allow more input fields for the CCFD service ( Boris Zentner )
         - Remove LocationVerification example and API ( Boris Zentner )
 1.50 March 13th 2012
