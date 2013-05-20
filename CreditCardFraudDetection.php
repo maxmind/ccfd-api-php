@@ -74,7 +74,7 @@ class CreditCardFraudDetection extends HTTPBase {
 
   function filter_field($key, $value) {
     if ($key == 'emailMD5'){
-      if (ereg('\@',$value)){
+      if (preg_match('/\@/', $value)){
 	return md5(strtolower($value));
       }
     } else if ($key == 'usernameMD5' || $key == 'passwordMD5') {

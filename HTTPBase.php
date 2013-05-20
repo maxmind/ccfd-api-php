@@ -87,7 +87,7 @@ class HTTPBase{
 	}
       }
     }
-    
+
     // query every server using its domain name
     for ($i = 0; $i < $this->numservers; $i++ ) {
       $result = $this->querySingleServer($this->server[$i]);
@@ -108,7 +108,7 @@ class HTTPBase{
     for ($i = 0; $i < $numinputkeys; $i++) {
       $key = $inputkeys[$i];
       if ($this->allowed_fields[$key] == 1) {
-        //if key is a allowed field then store it in 
+        //if key is a allowed field then store it in
         //the hash named queries
         $this->queries[$key] = urlencode($this->filter_field($key, $vars[$key]));
       } else {
@@ -126,7 +126,7 @@ class HTTPBase{
 
   //this function returns the output from the server
   function output() {
-    return $this->outputstr; 
+    return $this->outputstr;
   }
 
   // write the ip Addresses and the time right now to
@@ -143,7 +143,7 @@ class HTTPBase{
       print "date time: " . $datetime . "\n";
     }
   }
-      
+
   function readIpAddressFromCache() {
     // if the cache file exists then
     // read the ip addresses and the time
@@ -156,9 +156,9 @@ class HTTPBase{
       $datetime = rtrim($datetime);
       fclose($fh);
     }
-     
+
     // if the ip addresses expired or don't exist then
-    // get them from the web and write 
+    // get them from the web and write
     // them to the cache file
     if (((time() - $datetime) > $this->wsIpaddrRefreshTimeout) | (!$ipstr)) {
       $tryIpstr = $this->readIpAddressFromWeb();
@@ -179,7 +179,7 @@ class HTTPBase{
       print "date time: " . $datetime . "\n";
     }
     //return the ip addresses
-    return $ipstr;     
+    return $ipstr;
   }
 
   function readIpAddressFromWeb() {
@@ -231,9 +231,9 @@ class HTTPBase{
       print "readIpAddressFromWeb found ip addresses: " . $content . "\n";
     }
     // TODO fix regexp so that it checks if it only has IP addresses
-    if (ereg ("([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})",$content)) {
+    if (preg_match('/([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/',$content)) {
       return $content;
-    } 
+    }
     return "";
   }
 
@@ -256,7 +256,7 @@ class HTTPBase{
     $query_string = "";
 
     for ($i = 0; $i < $numquerieskeys; $i++) {
-      //for each element in the hash called queries 
+      //for each element in the hash called queries
       //append the key and value of the element to the query string
       $key = $querieskeys[$i];
       $value = $this->queries[$key];
@@ -295,7 +295,7 @@ class HTTPBase{
       curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
       curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,0);
 
-      //this option lets you store the result in a string 
+      //this option lets you store the result in a string
       curl_setopt($ch, CURLOPT_POST,          1);
       curl_setopt($ch, CURLOPT_POSTFIELDS,    $query_string);
 
@@ -319,7 +319,7 @@ class HTTPBase{
       curl_close($ch);
     } else {
       //curl does not exist
-      //use the fsockopen function, 
+      //use the fsockopen function,
       //the fgets function and the fclose function
       if ($this->debug == 1) {
         print "using fsockopen for querySingleServer\n";
@@ -372,7 +372,7 @@ class HTTPBase{
     // the string content and store them
     // the hash named outputstr
 
-    // split content into pairs containing both 
+    // split content into pairs containing both
     // the key and the value
     $keyvaluepairs = explode(";",$content);
 
