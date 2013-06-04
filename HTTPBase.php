@@ -52,7 +52,7 @@ class HTTPBase{
 
   // this function sets the checked field
   function set_check_field($f) {
-    $check_field = $f;
+    $this->check_field = $f;
   }
 
   // this function sets the allowed fields
