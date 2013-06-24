@@ -1,4 +1,4 @@
-# Maxmind minFraud PHP API Version 1.53 #
+# Maxmind minFraud PHP API #
 
 ## Example Scripts ##
 
