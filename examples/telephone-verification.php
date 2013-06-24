@@ -1,6 +1,6 @@
 #!/usr/bin/php -q
 <?php
-require("TelephoneVerification.php");
+require("../src/TelephoneVerification.php");
 
 $tv = new TelephoneVerification;
 

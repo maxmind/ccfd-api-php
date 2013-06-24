@@ -1,6 +1,6 @@
 #!/usr/bin/php -q
 <?php
-require("CreditCardFraudDetection.php");
+require("../src/CreditCardFraudDetection.php");
 
 // Create a new CreditCardFraudDetection object
 $ccfs = new CreditCardFraudDetection;
@@ -26,8 +26,8 @@ $h["forwardedIP"] = "24.24.24.25";	// X-Forwarded-For or Client-IP HTTP Header
 // MD5 hash of e-mail address passed to emailMD5 if it detects '@' in the string
 $h["emailMD5"] = "Adeeb@Hackstyle.com";
 // CreditCardFraudDetection.php will take the MD5 hash of the username/password if the length of the string is not 32
-$h["usernameMD5"] = "test_carder_username"; 
-$h["passwordMD5"] = "test_carder_password"; 
+$h["usernameMD5"] = "test_carder_username";
+$h["passwordMD5"] = "test_carder_password";
 
 // Optional fields
 $h["binName"] = "MBNA America Bank";	// bank name
