@@ -1,12 +1,55 @@
 # Maxmind minFraud PHP API #
 
+## Installing with Composer ##
+
+### Define Your Dependencies ###
+
+We recommend installing this package with [Composer](http://getcomposer.org/).
+To do this, add ```minfraud/http``` to your ```composer.json``` file.
+
+```json
+{
+    "require": {
+        "minfraud/http": "~1.53"
+    }
+}
+```
+
+### Install Composer ###
+
+Run in your project root:
+
+```
+curl -s http://getcomposer.org/installer | php
+```
+
+### Install Dependencies ###
+
+Run in your project root:
+
+```
+php composer.phar install
+```
+
+### Require Autoloader ###
+
+You can autoload all dependencies by adding this to your code:
+```
+require 'vendor/autoload.php';
+```
+
+## Installing without Composer ##
+
+Place the files in the `src` directory in the `include_path` as specified in
+your `php.ini` file or place them in the same directory as your PHP scripts.
+
 ## Example Scripts ##
 
-See examples/minfraud.php for complete example how to use this API with the
+See `examples/minfraud.php` for complete example how to use this API with the
 minFraud service.
 
-See examples/telephone-verification.php for complete example how to use this API with
-the Telephone Verification service.
+See `examples/telephone-verification.php` for complete example how to use
+this API with the Telephone Verification service.
 
 These scripts can be run from the shell.
 

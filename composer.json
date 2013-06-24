@@ -6,11 +6,11 @@
     "type": "library",
     "license": "LGPL-2.1+",
     "authors": [
-    {
-        "name": "MaxMind, Inc.",
-        "email": "support@maxmind.com",
-        "homepage": "http://www.maxmind.com/"
-    }
+        {
+            "name": "MaxMind, Inc.",
+            "email": "support@maxmind.com",
+            "homepage": "http://www.maxmind.com/"
+        }
     ],
     "autoload": {
         "files": [
