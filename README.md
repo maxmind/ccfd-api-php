@@ -53,26 +53,34 @@ this API with the Telephone Verification service.
 
 These scripts can be run from the shell.
 
-## API Documentation for minFraud service ##
+## Usage ##
+
+```php
 
 $ccfs = new CreditCardFraudDetection;
-  This creates a new CreditCardFraudDetection object
-
-$ccfs->isSecure
-  If isSecure is set to 0 then it uses regular HTTP.
-  If isSecure is set to 1 then it uses Secure HTTPS (requires Curl PHP binding)
-
-$ccfs->input($hash)
-  Takes a hash and uses it as input for the server.
-  See http://dev.maxmind.com/minfraud/ for details on input fields.
-
+$ccfs->input($hash);
 $ccfs->query();
+$hash = $ccfs->output();
+
+```
+### $ccfs->isSecure ###
+
+If isSecure is set to 0 then it uses regular HTTP. If isSecure is set to 1
+then it uses Secure HTTPS (requires Curl PHP binding)
+
+### $ccfs->input($hash) ###
+
+Takes a hash and uses it as input for the server. See
+http://dev.maxmind.com/minfraud/ for details on input fields.
+
+### $ccfs->query() ###
   Queries the server with the fields passed to the input method
   and stores the output.
 
-$hash = $ccfs->output();
-  Returns the output from the server.
-  See http://dev.maxmind.com/minfraud/ for details on output fields.
+### $ccfs->output();
+
+Returns the output from the server. See http://dev.maxmind.com/minfraud/
+for details on output fields.
 
 ## Secure HTTPS ##
 
