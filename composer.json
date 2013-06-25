@@ -18,5 +18,5 @@
             "src/HTTPBase.php",
             "src/TelephoneVerification.php"
         ]
-    },
+    }
 }
