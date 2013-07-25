@@ -1,5 +1,7 @@
 <?php
 
+namespace Maxmind\Minfraud;
+
 /* CreditCardFraudDetection.php
  *
  * Copyright (C) 2008 MaxMind, Inc.
@@ -19,7 +21,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-require_once ("HTTPBase.php");
 class CreditCardFraudDetection extends HTTPBase {
   var $server;
   var $numservers;
@@ -75,11 +76,11 @@ class CreditCardFraudDetection extends HTTPBase {
   function filter_field($key, $value) {
     if ($key == 'emailMD5'){
       if (strpos($value, '@') !== false){
-        return md5(strtolower($value));
+	return md5(strtolower($value));
       }
     } else if ($key == 'usernameMD5' || $key == 'passwordMD5') {
       if (strlen($value) != 32) {
-        return md5(strtolower($value));
+	return md5(strtolower($value));
       }
     }
     return $value;

@@ -1,5 +1,6 @@
 <?php
-require_once ("HTTPBase.php");
+namespace Maxmind\Minfraud;
+
 class TelephoneVerification extends HTTPBase {
   var $server;
   var $numservers;
