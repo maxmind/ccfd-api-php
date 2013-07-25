@@ -2,11 +2,13 @@
 namespace Maxmind\Minfraud;
 
 class TelephoneVerification extends HTTPBase {
-  var $server;
-  var $numservers;
-  var $API_VERSION;
-  function TelephoneVerification(){
-    $this->HTTPBase();
+  public $server;
+  public $numservers;
+  public $API_VERSION;
+
+  function __construct(){
+    parent::__construct();
+
     $this->isSecure = 1;    // use HTTPS by default
 
     //set the allowed_fields hash

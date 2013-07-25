@@ -22,12 +22,13 @@ namespace Maxmind\Minfraud;
  */
 
 class CreditCardFraudDetection extends HTTPBase {
-  var $server;
-  var $numservers;
-  var $API_VERSION;
+  public $server;
+  public $numservers;
+  public $API_VERSION;
 
-  function CreditCardFraudDetection() {
-    $this->HTTPBase();
+  function __construct() {
+	parent::__construct();
+
     $this->isSecure = 1;    // use HTTPS by default
 
     //set the allowed_fields hash

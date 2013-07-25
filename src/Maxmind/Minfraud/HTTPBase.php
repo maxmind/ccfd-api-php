@@ -22,22 +22,23 @@ namespace Maxmind\Minfraud;
  */
 
 class HTTPBase{
-  var $server;
-  var $numservers;
-  var $url;
-  var $queries;
-  var $allowed_fields;
-  var $num_allowed_fields;
-  var $outputstr;
-  var $isSecure;
-  var $timeout;
-  var $debug;
-  var $check_field;
-  var $wsIpaddrRefreshTimeout;
-  var $wsIpaddrCacheFile;
-  var $useDNS;
-  var $ipstr;
-  function HTTPBase() {
+  public $server;
+  public $numservers;
+  public $url;
+  public $queries;
+  public $allowed_fields;
+  public $num_allowed_fields;
+  public $outputstr;
+  public $isSecure;
+  public $timeout;
+  public $debug;
+  public $check_field;
+  public $wsIpaddrRefreshTimeout;
+  public $wsIpaddrCacheFile;
+  public $useDNS;
+  public $ipstr;
+
+  function __construct() {
     $this->isSecure = 0;
     $this->debug = 0;
     $this->timeout = 0;
