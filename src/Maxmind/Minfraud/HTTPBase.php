@@ -1,5 +1,7 @@
 <?php
 
+namespace Maxmind\Minfraud;
+
 /* HTTPBase.php
  *
  * Copyright (C) 2008 MaxMind, Inc.
@@ -20,22 +22,23 @@
  */
 
 class HTTPBase{
-  var $server;
-  var $numservers;
-  var $url;
-  var $queries;
-  var $allowed_fields;
-  var $num_allowed_fields;
-  var $outputstr;
-  var $isSecure;
-  var $timeout;
-  var $debug;
-  var $check_field;
-  var $wsIpaddrRefreshTimeout;
-  var $wsIpaddrCacheFile;
-  var $useDNS;
-  var $ipstr;
-  function HTTPBase() {
+  public $server;
+  public $numservers;
+  public $url;
+  public $queries;
+  public $allowed_fields;
+  public $num_allowed_fields;
+  public $outputstr;
+  public $isSecure;
+  public $timeout;
+  public $debug;
+  public $check_field;
+  public $wsIpaddrRefreshTimeout;
+  public $wsIpaddrCacheFile;
+  public $useDNS;
+  public $ipstr;
+
+  function __construct() {
     $this->isSecure = 0;
     $this->debug = 0;
     $this->timeout = 0;
@@ -79,12 +82,12 @@ class HTTPBase{
       for ($i = 0;$i < $numipaddr;$i++){
         $result = $this->querySingleServer($ipaddr[$i]);
         if ($this->debug == 1) {
-          print "ip address: " . $ipaddr[$i] . "\n";
-          print "result: " . $result . "\n";
-        }
+	  print "ip address: " . $ipaddr[$i] . "\n";
+	  print "result: " . $result . "\n";
+	}
         if ($result) {
-          return $result;
-        }
+	  return $result;
+	}
       }
     }
 
@@ -113,7 +116,7 @@ class HTTPBase{
         $this->queries[$key] = urlencode($this->filter_field($key, $vars[$key]));
       } else {
         print "invalid input $key - perhaps misspelled field?";
-        return 0;
+	return 0;
       }
     }
     $this->queries["clientAPI"] = $this->API_VERSION;
@@ -165,8 +168,8 @@ class HTTPBase{
       if ($tryIpstr) {
         $ipstr = $tryIpstr;
       } else {
-        if ($this->debug == 1){
-          print "Warning, unable to get ws_ipaddr from www.maxmind.com\n";
+	if ($this->debug == 1){
+	  print "Warning, unable to get ws_ipaddr from www.maxmind.com\n";
         }
       }
       // we write to cache whether or not we were able to get $tryIpStr, since
@@ -313,7 +316,7 @@ class HTTPBase{
 //      if ($e > 0) {
         //we get a error msg print it
 //        print "Received error message $e from curl: " . curl_error($ch) . "\n";
-//        return 0;
+//	return 0;
 //      }
       //close curl
       curl_close($ch);
@@ -339,7 +342,7 @@ class HTTPBase{
         $url3 = parse_url($url);
         $host = $url3["host"];
         $path = $url3["path"];
-        $query =  $url3["query"];
+	$query =  $url3["query"];
 
         //open the connection
         $fp = fsockopen ($host, 80, $errno, $errstr, $this->timeout);
@@ -356,8 +359,8 @@ class HTTPBase{
           //close the connection
           fclose($fp);
         } else {
-          return 0;
-        }
+	  return 0;
+	}
       } else {
         //secure HTTPS requires CURL
         print "error: you need to install curl if you want secure HTTPS or specify the variable to be $ccfs->isSecure = 0";
