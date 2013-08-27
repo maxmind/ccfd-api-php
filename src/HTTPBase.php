@@ -255,5 +255,5 @@ class HTTPBase{
     }
     return 1;
   }
-
+}
 ?>
