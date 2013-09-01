@@ -1,8 +1,9 @@
 Revision history for MaxMind CreditCardFraudDetection PHP API
 
-1.54 Aug 27th 2013
+1.54 Sept 1st 2013
 
     - Remove custom DNS cache support. ( Boris Zentner )
+    - Fixed Composer require issue. ( james-lsn )
 
 1.53 Jun 24th 2013
     - Removed deprecated use of `ereg`.

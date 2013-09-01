@@ -10,7 +10,7 @@ To do this, add ```minfraud/http``` to your ```composer.json``` file.
 ```json
 {
     "require": {
-        "minfraud/http": "~1.53"
+        "minfraud/http": "~1.54"
     }
 }
 ```
@@ -56,12 +56,25 @@ These scripts can be run from the shell.
 ## Usage ##
 
 ```php
+<?php
+require_once 'vendor/autoload.php';
+
+$inputs = array(
+    "license_key" => "YOUR_LICENSE_KEY_HERE",
+    "i"           => "24.24.24.24",
+    "city"        => "New York",
+    "region"      => "NY",
+    "postal"      => "11434",
+    "country"     => "US",
+    // Other inputs from http://dev.maxmind.com/minfraud/
+);
 
 $ccfs = new CreditCardFraudDetection;
-$ccfs->input($hash);
+$ccfs->input($inputs);
 $ccfs->query();
-$hash = $ccfs->output();
+$outputs = $ccfs->output();
 
+print_r($outputs)
 ```
 ### $ccfs->isSecure ###
 
