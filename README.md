@@ -74,22 +74,23 @@ $ccfs->input($inputs);
 $ccfs->query();
 $outputs = $ccfs->output();
 
-print_r($outputs)
+print_r($outputs);
 ```
 
 ### $ccfs->isSecure ###
 
 If isSecure is set to 0 then it uses regular HTTP. If isSecure is set to 1
-then it uses Secure HTTPS (requires Curl PHP binding)
+then it uses Secure HTTPS (requires Curl PHP binding).
 
-### $ccfs->input($hash) ###
+### $ccfs->input($array) ###
 
-Takes a hash and uses it as input for the server. See
+Takes an array of key/value pairs to use as input for the server. See
 http://dev.maxmind.com/minfraud/ for details on input fields.
 
 ### $ccfs->query() ###
-  Queries the server with the fields passed to the input method
-  and stores the output.
+
+Queries the server with the fields passed to the input method
+and stores the output.
 
 ### $ccfs->output();
 
