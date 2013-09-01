@@ -76,6 +76,7 @@ $outputs = $ccfs->output();
 
 print_r($outputs)
 ```
+
 ### $ccfs->isSecure ###
 
 If isSecure is set to 0 then it uses regular HTTP. If isSecure is set to 1
@@ -97,7 +98,7 @@ for details on output fields.
 
 ## Secure HTTPS ##
 
-Secure HTTPS is off by default. If you want secure HTTPS then you need to have
+Secure HTTPS is on by default. In order to use it, you need to have
 the Curl PHP binding, the curl library and the OpenSSL library.
 
 You can download the curl libary at:
@@ -109,13 +110,6 @@ It is recommended that you install these packages in this order:
 1. OpenSSL library
 2. Curl library
 3. Curl PHP binding
-
-Once you have installed these, you can turn on Secure HTTPS by setting:
-
-```php
-$ccfs->isSecure = 1;
-```
-where `$ccfs` is the CreditCardFraudDetection object.
 
 ===============================
 Copyright (c) 2013, MaxMind, Inc
