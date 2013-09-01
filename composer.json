@@ -14,8 +14,8 @@
     ],
     "autoload": {
         "files": [
-            "src/CreditCardFraudDetection.php",
             "src/HTTPBase.php",
+            "src/CreditCardFraudDetection.php",
             "src/TelephoneVerification.php"
         ]
     }
