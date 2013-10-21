@@ -26,7 +26,7 @@ $tv->timeout = 30;
 // $tv->debug = 1;
 
 //how many seconds the cache the ip addresses
-$ccfs->wsIpaddrRefreshTimeout = 3600*5;
+$ccfs->wsIpaddrRefreshTimeout = 3600 * 5;
 
 //where to store the ip address
 $ccfs->wsIpaddrCacheFile = "/tmp/maxmind.ws.cache";
@@ -47,8 +47,7 @@ $h = $tv->output();
 $outputkeys = array_keys($h);
 $numoutputkeys = count($h);
 for ($i = 0; $i < $numoutputkeys; $i++) {
-  $key = $outputkeys[$i];
-  $value = $h[$key];
-  print $key . " = " . $value . "\n";
+    $key = $outputkeys[$i];
+    $value = $h[$key];
+    print $key . " = " . $value . "\n";
 }
-?>

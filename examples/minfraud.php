@@ -71,8 +71,7 @@ $h = $ccfs->output();
 $outputkeys = array_keys($h);
 $numoutputkeys = count($h);
 for ($i = 0; $i < $numoutputkeys; $i++) {
-  $key = $outputkeys[$i];
-  $value = $h[$key];
-  print $key . " = " . $value . "\n";
+    $key = $outputkeys[$i];
+    $value = $h[$key];
+    print $key . " = " . $value . "\n";
 }
-?>
