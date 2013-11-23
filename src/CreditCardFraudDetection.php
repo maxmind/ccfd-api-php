@@ -19,72 +19,121 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-require_once("HTTPBase.php");
+require_once 'HTTPBase.php';
 class CreditCardFraudDetection extends HTTPBase
 {
-    public $server;
-    public $numservers;
-    public $API_VERSION;
+    /**
+     * Constant to define the version of this
+     * @var unknown
+     */
+    const API_VERSION = 'PHP/1.54';
 
-    public function CreditCardFraudDetection()
+    /**
+     * Default servers to query.
+     *
+     * @var array
+     */
+    public $server = array(
+        'minfraud.maxmind.com',
+        'minfraud-us-east.maxmind.com',
+        'minfraud-us-west.maxmind.com'
+    );
+
+    /**
+     * The numbers of servers to query.
+     *
+     * @var int
+     */
+    public $numservers = 0;
+
+    /**
+     * The URL Path to use.
+     *
+     * @var string
+     */
+    public $url = 'app/ccv2r';
+
+    /**
+     * Set isSecure to true by default.
+     *
+     * @var bool
+     */
+    public $isSecure = true;
+
+    /**
+     * Set the default allowed fields.
+     *
+     * @var array
+     */
+    public $allowed_fields = array(
+        'i'               => true,
+        'domain'          => true,
+        'city'            => true,
+        'region'          => true,
+        'postal'          => true,
+        'country'         => true,
+        'bin'             => true,
+        'binName'         => true,
+        'binPhone'        => true,
+        'custPhone'       => true,
+        'license_key'     => true,
+        'requested_type'  => true,
+        'forwardedIP'     => true,
+        'emailMD5'        => true,
+        'shipAddr'        => true,
+        'shipCity'        => true,
+        'shipRegion'      => true,
+        'shipPostal'      => true,
+        'shipCountry'     => true,
+        'txnID'           => true,
+        'sessionID'       => true,
+        'usernameMD5'     => true,
+        'passwordMD5'     => true,
+        'user_agent'      => true,
+        'accept_language' => true,
+        'avs_result'      => true,
+        'cvv_result'      => true,
+        'order_amount'    => true,
+        'order_currency'  => true,
+        'shopID'          => true,
+        'txn_type'        => true
+    );
+
+    /**
+     * Constuctor.
+     */
+    public function __construct()
     {
-        $this->HTTPBase();
-        $this->isSecure = 1; // use HTTPS by default
-
-        //set the allowed_fields hash
-        $this->allowed_fields["i"] = 1;
-        $this->allowed_fields["domain"] = 1;
-        $this->allowed_fields["city"] = 1;
-        $this->allowed_fields["region"] = 1;
-        $this->allowed_fields["postal"] = 1;
-        $this->allowed_fields["country"] = 1;
-        $this->allowed_fields["bin"] = 1;
-        $this->allowed_fields["binName"] = 1;
-        $this->allowed_fields["binPhone"] = 1;
-        $this->allowed_fields["custPhone"] = 1;
-        $this->allowed_fields["license_key"] = 1;
-        $this->allowed_fields["requested_type"] = 1;
-        $this->allowed_fields["forwardedIP"] = 1;
-        $this->allowed_fields["emailMD5"] = 1;
-        $this->allowed_fields["shipAddr"] = 1;
-        $this->allowed_fields["shipCity"] = 1;
-        $this->allowed_fields["shipRegion"] = 1;
-        $this->allowed_fields["shipPostal"] = 1;
-        $this->allowed_fields["shipCountry"] = 1;
-        $this->allowed_fields["txnID"] = 1;
-        $this->allowed_fields["sessionID"] = 1;
-        $this->allowed_fields["usernameMD5"] = 1;
-        $this->allowed_fields["passwordMD5"] = 1;
-        $this->allowed_fields["user_agent"] = 1;
-        $this->allowed_fields["accept_language"] = 1;
-        $this->allowed_fields["avs_result"] = 1;
-        $this->allowed_fields["cvv_result"] = 1;
-        $this->allowed_fields["order_amount"] = 1;
-        $this->allowed_fields["order_currency"] = 1;
-        $this->allowed_fields["shopID"] = 1;
-        $this->allowed_fields["txn_type"] = 1;
-
+        // Set the number of allowed fields.
         $this->num_allowed_fields = count($this->allowed_fields);
 
-        //set the url of the web service
-        $this->url = "app/ccv2r";
-        $this->check_field = "countryMatch";
-        $this->server = array("minfraud.maxmind.com", "minfraud-us-east.maxmind.com", "minfraud-us-west.maxmind.com");
+        // Set the number of servers to query.
         $this->numservers = count($this->server);
-        $this->API_VERSION = 'PHP/1.54';
     }
 
+    /**
+     * If key matches one of 'emailMD5', 'usernameMD5' or 'passwordMD5',
+     * convert value to lowercase and return the md5.
+     *
+     * If key does not match one of the above, just return the value.
+     *
+     * @see HTTPBase::filter_field()
+     * @param string $key
+     * @param string $value
+     * @return string
+     */
     public function filter_field($key, $value)
     {
-        if ($key == 'emailMD5') {
-            if (strpos($value, '@') !== false) {
-                return md5(strtolower($value));
-            }
-        } elseif ($key == 'usernameMD5' || $key == 'passwordMD5') {
-            if (strlen($value) != 32) {
-                return md5(strtolower($value));
-            }
+        if ($key == 'emailMD5' && false !== strpos($value, '@')) {
+            return md5(strtolower($value));
         }
+
+        if (($key == 'usernameMD5' || $key == 'passwordMD5')
+            && strlen($value) != 32
+        ) {
+            return md5(strtolower($value));
+        }
+
         return $value;
     }
 }
