@@ -19,237 +19,342 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-class HTTPBase
+abstract class HTTPBase
 {
-    public $server;
-    public $numservers;
-    public $url;
-    public $queries;
-    public $allowed_fields;
-    public $num_allowed_fields;
-    public $outputstr;
-    public $isSecure;
-    public $timeout;
-    public $debug;
-    public $check_field;
+    /**
+     * @var string|array
+     */
+    protected $server = '';
 
-    public function HTTPBase()
+    /**
+     * @var int
+     */
+    protected $numservers = 0;
+
+    /**
+     * @var string
+     */
+    protected $url = '';
+
+    /**
+     * @var array
+     */
+    protected $queries = array();
+
+    /**
+     * @var array
+     */
+    protected $allowed_fields = array();
+
+    /**
+     * @var int
+     */
+    protected $num_allowed_fields;
+
+    /**
+     * @var array
+     */
+    protected $outputstr = array();
+
+    /**
+     * @var bool
+     */
+    protected $isSecure = false;
+
+    /**
+     * @var int
+     */
+    protected $timeout = 0;
+
+    /**
+     * @var bool
+     */
+    protected $debug = false;
+
+    /**
+     * Use countryMatch to validate the results.
+     * It is available in all minfraud answers.
+     *
+     * @var string
+     */
+    protected $check_field = 'countryMatch';
+
+    /**
+     * Public getter for class properties.
+     *
+     * @param string $key
+     * @return mixed|NULL Returns the property value,
+     *                     or null if it doesn't exist.
+     */
+    public function __get($key)
     {
-        $this->isSecure = 0;
-        $this->debug = 0;
-        $this->timeout = 0;
-        // use countryMatch to validate the results. It is avail in all minfraud answeres
-        $this->check_field = "countryMatch";
+        if (property_exists($this, $key)) {
+            return $this->$key;
+        }
+        return null;
     }
 
-    // this function sets the checked field
+    /**
+     * Public setter.
+     *
+     * @param string $key
+     * @param mixed $val
+     */
+    public function __set($key, $val)
+    {
+        // Only set properties the exist.
+        if (property_exists($this, $key)) {
+            $this->$key = $val;
+        }
+    }
+
+    /**
+     * Sets the checked field.
+     *
+     * @param string $f
+     */
     public function set_check_field($f)
     {
         $this->check_field = $f;
     }
 
-    // this function sets the allowed fields
+    /**
+     * Set the allowed fields.
+     *
+     * @param array $i
+     */
     public function set_allowed_fields($i)
     {
-        $this->allowed_fields = $i;
+        $this->allowed_fields     = $i;
         $this->num_allowed_fields = count($i);
     }
 
-    //this function queries the servers
+    /**
+     * Query each server.
+     *
+     * @return false|string
+     */
     public function query()
     {
-        // query every server using its domain name
+        // Query every server using it's domain name.
         for ($i = 0; $i < $this->numservers; $i++) {
             $result = $this->querySingleServer($this->server[$i]);
-            if ($this->debug == 1) {
-                print "server: " . $this->server[$i] . "\nresult: " . $result . "\n";
+            if ($this->debug) {
+                echo "server: {$this->server[$i]}\n";
+                echo "result: $result\n";
             }
+
             if ($result) {
                 return $result;
             }
         }
-        return 0;
+        return false;
     }
 
-    // this function takes a input hash and stores it in the hash named queries
-    public function input($vars)
+    /**
+     * Validates and stores the inputVars in the queries array.
+     *
+     * @param array $vars
+     */
+    public function input($inputVars)
     {
-        $numinputkeys = count($vars); // get the number of keys in the input hash
-        $inputkeys = array_keys($vars); // get a array of keys in the input hash
-        for ($i = 0; $i < $numinputkeys; $i++) {
-            $key = $inputkeys[$i];
-            if ($this->allowed_fields[$key] == 1) {
-                //if key is a allowed field then store it in
-                //the hash named queries
-                $this->queries[$key] = urlencode($this->filter_field($key, $vars[$key]));
-            } else {
-                print "invalid input $key - perhaps misspelled field?";
-                return 0;
+        foreach ($inputVars as $key => $val) {
+            if (empty($this->allowed_fields[$key])) {
+                echo "Invalid input $key - perhaps misspelled field?\n";
+                return false;
             }
+            $this->queries[$key] = urlencode($this->filter_field($key, $val));
         }
-        $this->queries["clientAPI"] = $this->API_VERSION;
+        $this->queries['clientAPI'] = static::API_VERSION;
     }
 
-    //sub-class should override this if it needs to filter inputs
+    /**
+     * Child classes should override this if it needs to filter inputs.
+     *
+     * @param string $key
+     * @param string $value
+     * @return string
+     */
     public function filter_field($key, $value)
     {
         return $value;
     }
 
-    //this function returns the output from the server
+    /**
+     * Return the output from the server.
+     *
+     * @return array
+     */
     public function output()
     {
         return $this->outputstr;
     }
 
-    // this function queries a single server
+    /**
+     * Queries a single server. Returns true if the query was successful,
+     * otherwise false.
+     *
+     * @param string $server
+     * @return bool
+     */
     public function querySingleServer($server)
     {
-        // check if we using the Secure HTTPS proctol
-        if ($this->isSecure == 1) {
-            $scheme = "https://"; // Secure HTTPS proctol
-        } else {
-            $scheme = "http://"; // Regular HTTP proctol
+        // Check if we using the Secure HTTPS proctol.
+        $scheme = $this->isSecure ? 'https://' : 'http://';
+
+        // Build a query string from the queries array.
+        $numQueries = count($this->queries);
+        $queryKeys  = array_keys($this->queries);
+        if ($this->debug) {
+            echo "Number of query keys {$numQueries}\n";
         }
 
-        // build a query string from the hash called queries
-        $numquerieskeys = count($this->queries); // get the number of keys in the hash called queries
-        $querieskeys = array_keys($this->queries); // get a array of keys in the hash called queries
-        if ($this->debug == 1) {
-            print "number of query keys " . $numquerieskeys . "\n";
-        }
+        $queryString = '';
 
-        $query_string = "";
-
-        for ($i = 0; $i < $numquerieskeys; $i++) {
-            //for each element in the hash called queries
-            //append the key and value of the element to the query string
-            $key = $querieskeys[$i];
+        for ($i = 0; $i < $numQueries; $i++) {
+            /**
+             * For each element in the array, append the key
+             * and value of the element to the query string.
+             */
+            $key   = $queryKeys[$i];
             $value = $this->queries[$key];
-            //encode the key and value before adding it to the string
-            //$key = urlencode($key);
-            //$value = urlencode($value);
-            if ($this->debug == 1) {
-                print " query key " . $key . " query value " . $value . "\n";
+
+            if ($this->debug) {
+                echo " query key {$key} query value {$value}\n";
             }
-            $query_string = $query_string . $key . "=" . $value;
-            if ($i < $numquerieskeys - 1) {
-                $query_string = $query_string . "&";
+
+            $queryString .= $key . '=' . $value;
+            if ($i < $numQueries - 1) {
+                $queryString .= '&';
             }
         }
 
-        $content = "";
+        $url     = $scheme . $server . "/" . $this->url;
+        $content = '';
 
-        //check if the curl module exists
+        // Check if the curl module exists.
         if (extension_loaded('curl')) {
-            //use curl
-            if ($this->debug == 1) {
-                print "using curl\n";
+            // Use curl.
+            if ($this->debug) {
+                echo "Using curl\n";
             }
 
-            //open curl
+            // Open curl.
             $ch = curl_init();
 
-            $url = $scheme . $server . "/" . $this->url;
-
-            //set curl options
-            if ($this->debug == 1) {
-                print "url " . $url . "\n";
+            // Set curl options
+            if ($this->debug) {
+                echo "url {$url}\n";
             }
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 
-            //this option lets you store the result in a string
+            // This option lets you store the result in a string.
             curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $query_string);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $queryString);
 
-            //get the content
+            // Get the content.
             $content = curl_exec($ch);
 
             curl_close($ch);
         } else {
-            //curl does not exist
-            //use the fsockopen function,
-            //the fgets function and the fclose function
-            if ($this->debug == 1) {
-                print "using fsockopen for querySingleServer\n";
+            /**
+             * The curl extension is not loaded.
+             * Use the fsockopen, fgets, and fclose functions.
+             */
+            if ($this->debug) {
+                echo "Using fsockopen for querySingleServer\n";
             }
 
-            $url = $scheme . $server . "/" . $this->url . "?" . $query_string;
-            if ($this->debug == 1) {
-                print "url " . $url . " " . "\n";
+            $url .= "?{$queryString}";
+            if ($this->debug) {
+                echo "url {$url}\n";
             }
 
-            //now check if we are using regular HTTP
+            // Check if we are using regular HTTP.
             if ($this->isSecure == 0) {
-                //we using regular HTTP
-
-                //parse the url to get
-                //host, path and query
-                $url3 = parse_url($url);
-                $host = $url3["host"];
-                $path = $url3["path"];
+                //parse the url to get host, path and query.
+                $url3  = parse_url($url);
+                $host  = $url3["host"];
+                $path  = $url3["path"];
                 $query = $url3["query"];
 
-                //open the connection
+                // Open the connection.
                 $fp = fsockopen($host, 80, $errno, $errstr, $this->timeout);
-                if ($fp) {
-                    //send the request
-                    $post = "POST $path HTTP/1.0\nHost: " . $host . "\nContent-type: application/x-www-form-urlencoded\nUser-Agent: Mozilla 4.0\nContent-length: " . strlen(
-                            $query
-                        ) . "\nConnection: close\n\n$query";
-                    fputs($fp, $post);
-                    while (!feof($fp)) {
-                        $buf .= fgets($fp, 128);
-                    }
-                    $lines = explode("\n", $buf);
-                    // get the content
-                    $content = $lines[count($lines) - 1];
-                    //close the connection
-                    fclose($fp);
-                } else {
-                    return 0;
+
+                // There was a problem opening the connection.
+                if (!$fp) {
+                    return false;
                 }
+
+                // Send the request.
+                $post = "POST $path HTTP/1.0\n"
+                      . "Host: {$host}\n"
+                      . "Content-type: application/x-www-form-urlencoded\n"
+                      . "User-Agent: Mozilla 4.0\n"
+                      . "Content-length: "
+                      .     strlen($query)
+                      . "\nConnection: close\n\n"
+                      . $query;
+
+                fputs($fp, $post);
+                while (!feof($fp)) {
+                    $buf .= fgets($fp, 128);
+                }
+                $lines = explode("\n", $buf);
+
+                // Get the content.
+                $content = $lines[count($lines) - 1];
+
+                // Close the connection.
+                fclose($fp);
             } else {
-                //secure HTTPS requires CURL
-                print "error: you need to install curl if you want secure HTTPS or specify the variable to be $ccfs->isSecure = 0";
-                return 0;
+                // Secure HTTPS requires CURL
+                echo 'Error: you need to install curl if you want secure HTTPS '
+                   . 'or specify the variable to be $ccfs->isSecure = false';
+                return false;
             }
         }
 
-        if ($this->debug == 1) {
-            print "content = " . $content . "\n";
+        if ($this->debug) {
+            echo "content = {$content}\n";
         }
-        // get the keys and values from
-        // the string content and store them
-        // the hash named outputstr
 
-        // split content into pairs containing both
-        // the key and the value
-        $keyvaluepairs = explode(";", $content);
+        if (empty($content)) {
+            echo "Returned content is empty!\n";
+            return false;
+        }
 
-        //get the number of key and value pairs
-        $numkeyvaluepairs = count($keyvaluepairs);
+        /**
+         * Get the keys and values from the string content
+         * and store them in the outputstr array.
+         */
 
-        //for each pair store key and value into the
-        //hash named outputstr
+        // Split content into pairs containing both the key and the value.
+        $keyValuePairs = explode(';', $content);
+
+        // Get the number of key and value pairs.
+        $numKeyValuePairs = count($keyValuePairs);
+
+        // For each pair store key and value into the outputstr array.
         $this->outputstr = array();
-        for ($i = 0; $i < $numkeyvaluepairs; $i++) {
-            //split the pair into a key and a value
-            list($key, $value) = explode("=", $keyvaluepairs[$i]);
-            if ($this->debug == 1) {
-                print " output " . $key . " = " . $value . "\n";
+        for ($i = 0; $i < $numKeyValuePairs; $i++) {
+            // Split the pair into a key and a value.
+            list($key, $value) = explode('=', $keyValuePairs[$i]);
+            if ($this->debug) {
+                echo " output {$key} = {$value}\n";
             }
-            //store the key and the value into the
-            //hash named outputstr
+
             $this->outputstr[$key] = $value;
         }
-        //one other way to do it
+
+        // One other way to do it.
         if (!array_key_exists($this->check_field, $this->outputstr)) {
-            return 0;
+            return false;
         }
-        return 1;
+
+        return true;
     }
 }
