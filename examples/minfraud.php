@@ -70,9 +70,7 @@ $ccfs->input($input);
 $ccfs->query();
 
 // Get the result from the server.
-$h = $ccfs->output();
+$output = $ccfs->output();
 
 // Finally we print out the result.
-foreach ($h as $key => $val) {
-    echo "{$key} = {$val}\n";
-}
+print_r($output);
