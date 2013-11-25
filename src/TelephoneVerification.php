@@ -1,14 +1,15 @@
 <?php
-require_once("HTTPBase.php");
+require_once 'HTTPBase.php';
+
 class TelephoneVerification extends HTTPBase
 {
     public $server;
     public $numservers;
-    public $API_VERSION;
+    const API_VERSION = 'PHP/1.54';
 
-    public function TelephoneVerification()
+
+    public function __construct()
     {
-        $this->HTTPBase();
         $this->isSecure = 1; // use HTTPS by default
 
         //set the allowed_fields hash
@@ -22,7 +23,6 @@ class TelephoneVerification extends HTTPBase
         $this->check_field = "refid";
         $this->server = array("www.maxmind.com", "www2.maxmind.com");
         $this->numservers = count($this->server);
-        $this->API_VERSION = 'PHP/1.4';
         $this->timeout = 30;
     }
 }
