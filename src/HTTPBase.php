@@ -300,6 +300,7 @@ abstract class HTTPBase
                       . $query;
 
                 fputs($fp, $post);
+                $buf = '';
                 while (!feof($fp)) {
                     $buf .= fgets($fp, 128);
                 }
