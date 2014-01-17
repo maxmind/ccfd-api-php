@@ -165,7 +165,9 @@ abstract class HTTPBase
             }
             $this->queries[$key] = urlencode($this->filter_field($key, $val));
         }
-        $this->queries['clientAPI'] = static::API_VERSION;
+        $this->queries['clientAPI'] = constant(
+            get_class($this) . '::API_VERSION'
+        );
     }
 
     /**
