@@ -23,12 +23,6 @@ require_once 'HTTPBase.php';
 class CreditCardFraudDetection extends HTTPBase
 {
     /**
-     * Constant to define the version of this
-     * @var unknown
-     */
-    const API_VERSION = 'PHP/1.54';
-
-    /**
      * Default servers to query.
      *
      * @var array

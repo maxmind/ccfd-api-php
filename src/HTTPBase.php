@@ -22,6 +22,12 @@
 abstract class HTTPBase
 {
     /**
+     * Constant to define the version of this
+     * @var unknown
+     */
+    const API_VERSION = 'PHP/1.54';
+
+    /**
      * @var string|array
      */
     protected $server = '';
@@ -165,7 +171,7 @@ abstract class HTTPBase
             }
             $this->queries[$key] = urlencode($this->filter_field($key, $val));
         }
-        $this->queries['clientAPI'] = static::API_VERSION;
+        $this->queries['clientAPI'] = $this->API_VERSION;
     }
 
     /**

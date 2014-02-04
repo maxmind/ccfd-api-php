@@ -5,8 +5,6 @@ class TelephoneVerification extends HTTPBase
 {
     public $server;
     public $numservers;
-    const API_VERSION = 'PHP/1.54';
-
 
     public function __construct()
     {
