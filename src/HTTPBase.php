@@ -255,7 +255,8 @@ abstract class HTTPBase
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+            \Kdyby\CurlCaBundle\CertificateHelper::setCurlCaInfo($ch);
 
             // This option lets you store the result in a string.
             curl_setopt($ch, CURLOPT_POST, 1);

@@ -12,6 +12,9 @@
             "homepage": "http://www.maxmind.com/"
         }
     ],
+    "require": {
+        "kdyby/curl-ca-bundle": "~1.0"
+    },
     "autoload": {
         "files": [
             "src/HTTPBase.php",
