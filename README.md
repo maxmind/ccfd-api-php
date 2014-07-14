@@ -4,7 +4,7 @@
 
 We recommend installing this package with [Composer](http://getcomposer.org/).
 
-### Downloading Composer ###
+### Download Composer ###
 
 To download Composer, run in the root directory of your project:
 
@@ -35,7 +35,7 @@ from your code:
 require 'vendor/autoload.php';
 ```
 
-## Installing without Composer ##
+## Install without Composer ##
 
 Place the files in the `src` directory in the `include_path` as specified in
 your `php.ini` file or place them in the same directory as your PHP scripts.
