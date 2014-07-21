@@ -354,7 +354,7 @@ abstract class HTTPBase
                 echo " output {$key} = {$value}\n";
             }
 
-            $this->outputstr[$key] = $value;
+            $this->outputstr[$key] = utf8_encode($value);
         }
 
         // One other way to do it.
