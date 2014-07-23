@@ -19,7 +19,7 @@ You should now have the file `composer.phar` in your project directory.
 Run in your project root:
 
 ```
-php composer.phar require minfraud/http:~1.54
+php composer.phar require minfraud/http:~1.60
 ```
 
 You should now have the files `composer.json` and `composer.lock` as well as
@@ -79,6 +79,17 @@ print_r($outputs);
 If isSecure is set to 0 then it uses regular HTTP. If isSecure is set to 1
 then it uses Secure HTTPS (requires Curl PHP binding).
 
+## $ccfs->useUtf8($bool)
+
+If set to true, the output values will be converted from ISO 8859-1 to UTF-8.
+Defaults to false.
+
+## $ccfs->setCurlCaInfo($cert)
+
+Sets the path to the SSL certificate to be used by cURL. If this is not set,
+the default certificate is used. If no certificates are available and isSecure
+has not been disabled, the query will fail.
+
 ### $ccfs->input($array) ###
 
 Takes an array of key/value pairs to use as input for the server. See
@@ -110,7 +121,7 @@ It is recommended that you install these packages in this order:
 3. Curl PHP binding
 
 ===============================
-Copyright (c) 2013, MaxMind, Inc
+Copyright (c) 2014, MaxMind, Inc
 
 All rights reserved.  This package is licensed under the LGPL.  For details
 see the COPYING file.
