@@ -86,6 +86,7 @@ abstract class HTTPBase
     protected $check_field = 'countryMatch';
 
     private $curlCaInfo;
+    private $useUtf8;
 
     /**
      * Public getter for class properties.
@@ -125,6 +126,17 @@ abstract class HTTPBase
     public function setCurlCaInfo($cert)
     {
         $this->curlCaInfo = $cert;
+    }
+
+    /**
+     * If set to true, the outputs from the web service call will be converted
+     * from ISO 8859-1 to UTF-8. Defaults to false.
+     *
+     * @param boolean $useUtf8
+     */
+    public function useUtf8($useUtf8)
+    {
+        $this->useUtf8 = $useUtf8;
     }
 
     /**
@@ -350,6 +362,10 @@ abstract class HTTPBase
         if (empty($content)) {
             echo "Returned content is empty!\n";
             return false;
+        }
+
+        if ($this->useUtf8) {
+            $content = utf8_encode($content);
         }
 
         /**

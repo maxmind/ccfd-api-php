@@ -60,6 +60,9 @@ $input['user_agent']      = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_5; d
 // Set the timeout to be five seconds.
 $ccfs->timeout = 10;
 
+// Convert the output to UTF-8 (it is ISO 8859-1 by default)
+$ccfs->useUtf8(true);
+
 // Uncomment to turn on debugging.
 // $ccfs->debug = true;
 
