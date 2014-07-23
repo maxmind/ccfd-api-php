@@ -228,7 +228,7 @@ abstract class HTTPBase
      * @param string $server
      * @return bool
      */
-    public function querySingleServer($server)
+    public function querySingleServer($server, $utf8Encode = false)
     {
         // Check if we using the Secure HTTPS proctol.
         $scheme = $this->isSecure ? 'https://' : 'http://';
@@ -388,7 +388,7 @@ abstract class HTTPBase
                 echo " output {$key} = {$value}\n";
             }
 
-            $this->outputstr[$key] = $value;
+            $this->outputstr[$key] = $utf8Encode ? utf8_encode($value) : $value;
         }
 
         // One other way to do it.
