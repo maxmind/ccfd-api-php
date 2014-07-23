@@ -55,7 +55,7 @@ $input['user_agent']      = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_5; d
  * If you want to enable Secure HTTPS, have Curl and OpenSSL
  * installed, change the next line to true.
  */
-$ccfs->isSecure = false;
+// $ccfs->isSecure = false;
 
 // Set the timeout to be five seconds.
 $ccfs->timeout = 10;
