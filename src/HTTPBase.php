@@ -25,7 +25,7 @@ abstract class HTTPBase
      * Constant to define the version of this
      * @var unknown
      */
-    const API_VERSION = 'PHP/1.54';
+    const API_VERSION = 'PHP/1.60';
 
     /**
      * @var string|array

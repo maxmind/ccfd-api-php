@@ -6,7 +6,10 @@ Revision history for MaxMind CreditCardFraudDetection PHP API
       a platform where cURL's cainfo is not set by default, you must either
       set set curl.cainfo in your php.ini file or use the setCurlCaInfo()
       method on the CreditCardFraudDetection object to set the certificates
-      to be used.
+      to be used. (GitHub #11)
+    - Added a useUtf8(bool) method that can be used to enable the conversion
+      of the web service response to UTF-8. (GitHub #12)
+    - Undefined value warning fix. (GitHub #8)
 
 1.54 Sept 1st 2013
 
