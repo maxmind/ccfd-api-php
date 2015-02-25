@@ -85,6 +85,16 @@ abstract class HTTPBase
      */
     protected $check_field = 'countryMatch';
 
+    /**
+     * @var string
+     */
+    protected $last_request = '';
+
+    /**
+     * @var string
+     */
+    protected $last_response = '';
+
     private $curlCaInfo;
     private $useUtf8;
 
@@ -260,6 +270,8 @@ abstract class HTTPBase
             }
         }
 
+        $this->last_request = $queryString;
+
         $url     = $scheme . $server . "/" . $this->url;
         $content = '';
 
@@ -293,6 +305,8 @@ abstract class HTTPBase
 
             // Get the content.
             $content = curl_exec($ch);
+
+            $this->last_response = $content;
 
             curl_close($ch);
         } else {
