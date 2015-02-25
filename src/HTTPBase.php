@@ -196,7 +196,7 @@ abstract class HTTPBase
             }
             $this->queries[$key] = urlencode($this->filter_field($key, $val));
         }
-        $this->queries['clientAPI'] = $this->API_VERSION;
+        $this->queries['clientAPI'] = self::API_VERSION;
     }
 
     /**
