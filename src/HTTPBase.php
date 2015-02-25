@@ -19,11 +19,18 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+ /**
+  * @property string|array $server The host to use as the server.
+  * @property bool $isSecure Set to true to use secure connection.
+  * @property int $timeout The timeout in seconds to use when connecting to
+  *                        the server
+  * @property string $API_VERSION The version of the API.
+  */
 abstract class HTTPBase
 {
     /**
      * Constant to define the version of this
-     * @var unknown
+     * @var string
      */
     const API_VERSION = 'PHP/1.60';
 
@@ -185,7 +192,7 @@ abstract class HTTPBase
     /**
      * Validates and stores the inputVars in the queries array.
      *
-     * @param array $vars
+     * @param $inputVars
      */
     public function input($inputVars)
     {
@@ -261,7 +268,6 @@ abstract class HTTPBase
         }
 
         $url     = $scheme . $server . "/" . $this->url;
-        $content = '';
 
         // Check if the curl module exists.
         if (extension_loaded('curl')) {
@@ -310,7 +316,7 @@ abstract class HTTPBase
             }
 
             // Check if we are using regular HTTP.
-            if ($this->isSecure == 0) {
+            if ($this->isSecure == false) {
                 //parse the url to get host, path and query.
                 $url3  = parse_url($url);
                 $host  = $url3["host"];
