@@ -25,15 +25,6 @@ $tv->timeout = 30;
 //uncomment to turn on debugging
 // $tv->debug = 1;
 
-//how many seconds the cache the ip addresses
-$ccfs->wsIpaddrRefreshTimeout = 3600 * 5;
-
-//where to store the ip address
-$ccfs->wsIpaddrCacheFile = "/tmp/maxmind.ws.cache";
-
-// if useDNS is 1 then use DNS, otherwise use ip addresses directly
-$ccfs->useDNS = false;
-
 // next we set up the input hash to be passed to the server
 $tv->input($h);
 
