@@ -48,13 +48,6 @@ class CreditCardFraudDetection extends HTTPBase
     public $url = 'app/ccv2r';
 
     /**
-     * Set isSecure to true by default.
-     *
-     * @var bool
-     */
-    public $isSecure = true;
-
-    /**
      * Set the default allowed fields.
      *
      * @var array
