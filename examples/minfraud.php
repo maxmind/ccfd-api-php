@@ -47,7 +47,6 @@ $input['shipRegion']      = 'NY';                     // the Region to Ship to
 $input['shipPostal']      = '11434';                  // the Postal Code to Ship to
 $input['shipCountry']     = 'US';                     // the country to Ship to11
 $input['txnID']           = '1234';                   // Transaction ID
-$input['sessionID']       = 'abcd9876';               // Session ID
 $input['accept_language'] = 'de-de';
 $input['user_agent']      = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_5; de-de) AppleWebKit/525.18 (KHTML, like Gecko) Version/3.1.2 Safari/525.20.1';
 
