@@ -12,7 +12,12 @@ $ccfs = new CreditCardFraudDetection();
 $input["license_key"] = "YOUR_LICENSE_KEY_HERE";
 
 // Required fields
-$input['i']       = '24.24.24.24';        // set the client ip address
+$input['i'] = $_SERVER['REMOTE_ADDR'];    // set the client ip address
+
+if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {   // X-Forwarded-For or Client-IP HTTP Header
+    $input['forwardedIP'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+}
+
 $input['city']    = 'New York';           // set the billing city
 $input['region']  = 'NY';                 // set the billing state
 $input['postal']  = '11434';              // set the billing zip code
@@ -21,7 +26,6 @@ $input['country'] = 'US';                 // set the billing country
 // Recommended fields
 $input['domain']      = 'yahoo.com';      // Email domain
 $input['bin']         = '549099';         // bank identification number
-$input['forwardedIP'] = '24.24.24.25';    // X-Forwarded-For or Client-IP HTTP Header
 
 /**
  * CreditCardFraudDetection.php will take MD5 hash of e-mail address passed
@@ -47,9 +51,8 @@ $input['shipRegion']      = 'NY';                     // the Region to Ship to
 $input['shipPostal']      = '11434';                  // the Postal Code to Ship to
 $input['shipCountry']     = 'US';                     // the country to Ship to11
 $input['txnID']           = '1234';                   // Transaction ID
-$input['sessionID']       = 'abcd9876';               // Session ID
-$input['accept_language'] = 'de-de';
-$input['user_agent']      = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_5; de-de) AppleWebKit/525.18 (KHTML, like Gecko) Version/3.1.2 Safari/525.20.1';
+$input['accept_language'] = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+$input['user_agent']      = $_SERVER['HTTP_USER_AGENT'];
 
 /**
  * If you want to enable Secure HTTPS, have Curl and OpenSSL
