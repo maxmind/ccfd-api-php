@@ -19,7 +19,7 @@ You should now have the file `composer.phar` in your project directory.
 Run in your project root:
 
 ```
-php composer.phar require minfraud/http:~1.60
+php composer.phar require minfraud/http:~1.70
 ```
 
 You should now have the files `composer.json` and `composer.lock` as well as
@@ -44,9 +44,6 @@ your `php.ini` file or place them in the same directory as your PHP scripts.
 
 See `examples/minfraud.php` for complete example how to use this API with the
 minFraud service.
-
-See `examples/telephone-verification.php` for complete example how to use
-this API with the Telephone Verification service.
 
 These scripts can be run from the shell.
 
