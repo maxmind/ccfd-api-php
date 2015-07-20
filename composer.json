@@ -1,7 +1,7 @@
 {
     "name": "minfraud/http",
     "description": "MaxMind minFraud HTTP API",
-    "keywords": [ "fraud", "minfraud", "maxmind" ],
+    "keywords": ["fraud", "minfraud", "maxmind"],
     "homepage": "https://github.com/maxmind/ccfd-api-php",
     "type": "library",
     "license": "LGPL-2.1+",
@@ -15,8 +15,7 @@
     "autoload": {
         "files": [
             "src/HTTPBase.php",
-            "src/CreditCardFraudDetection.php",
-            "src/TelephoneVerification.php"
+            "src/CreditCardFraudDetection.php"
         ]
     }
 }
