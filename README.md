@@ -76,18 +76,18 @@ print_r($outputs);
 If isSecure is set to 0 then it uses regular HTTP. If isSecure is set to 1
 then it uses Secure HTTPS (requires Curl PHP binding).
 
-## $ccfs->useUtf8($bool)
+### $ccfs->useUtf8($bool)
 
 If set to true, the output values will be converted from ISO 8859-1 to UTF-8.
 Defaults to false.
 
-## $ccfs->setCurlCaInfo($cert)
+### $ccfs->setCurlCaInfo($cert)
 
 Sets the path to the SSL certificate to be used by cURL. If this is not set,
 the default certificate is used. If no certificates are available and isSecure
 has not been disabled, the query will fail.
 
-## $ccfs->setCurlProxy($proxy)
+### $ccfs->setCurlProxy($proxy)
 
 Sets the host:port of a proxy to be used by cURL. If this is not set,
 no proxy is used. For example, $ccfs->setCurlProxy('proxy.example.com:3128');
