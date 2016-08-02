@@ -87,6 +87,11 @@ Sets the path to the SSL certificate to be used by cURL. If this is not set,
 the default certificate is used. If no certificates are available and isSecure
 has not been disabled, the query will fail.
 
+## $ccfs->setCurlProxy($proxy)
+
+Sets the host:port of a proxy to be used by cURL. If this is not set,
+no proxy is used. For example, $ccfs->setCurlProxy('proxy.example.com:3128');
+
 ### $ccfs->input($array) ###
 
 Takes an array of key/value pairs to use as input for the server. See

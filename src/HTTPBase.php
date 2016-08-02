@@ -93,6 +93,7 @@ abstract class HTTPBase
     protected $check_field = 'countryMatch';
 
     private $curlCaInfo;
+    private $curlProxy;
     private $useUtf8;
 
     /**
@@ -133,6 +134,17 @@ abstract class HTTPBase
     public function setCurlCaInfo($cert)
     {
         $this->curlCaInfo = $cert;
+    }
+
+    /**
+     * Sets the host and port of a proxy to be used by cURL. If this is
+     * not set, no proxy is used.
+     *
+     * @param string $proxy The host:port of the proxy.
+     */
+    public function setCurlProxy($proxy)
+    {
+        $this->curlProxy = $proxy;
     }
 
     /**
@@ -291,6 +303,10 @@ abstract class HTTPBase
 
             if ($this->curlCaInfo) {
                 curl_setopt($ch, CURLOPT_CAINFO, $this->curlCaInfo);
+            }
+
+            if ($this->curlProxy) {
+                curl_setopt($ch, CURLOPT_PROXY, $this->curlProxy);
             }
 
             // This option lets you store the result in a string.
