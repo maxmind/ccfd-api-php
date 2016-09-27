@@ -13,9 +13,8 @@
         }
     ],
     "autoload": {
-        "files": [
-            "src/HTTPBase.php",
-            "src/CreditCardFraudDetection.php"
+        "classmap": [
+            "src"
         ]
     }
 }
