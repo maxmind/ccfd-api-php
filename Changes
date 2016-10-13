@@ -1,5 +1,12 @@
 Revision history for MaxMind CreditCardFraudDetection PHP API
 
+## 1.71 2016-10-13
+
+* Support for adding a proxy. Pull request by Geoffrey. GitHub #22.
+* Composer will now use `classmap` to load the classes on demand instead of
+  loading them all the time. Pull request by nimasdj. GitHub #24.
+* The example code was updated. Pull request by nimasdj. GitHub #23.
+
 ## 1.70 2015-07-21
 
 * Support for the Telephone Verification Service was removed as this service
