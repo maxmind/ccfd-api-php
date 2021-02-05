@@ -1,5 +1,10 @@
 # Maxmind minFraud PHP API #
 
+## Deprecation ##
+
+This library is deprecated. Please use our [minFraud Score, Insights, and
+Factors API](https://github.com/maxmind/minfraud-api-php).
+
 ## Install via Composer ##
 
 We recommend installing this package with [Composer](http://getcomposer.org/).
